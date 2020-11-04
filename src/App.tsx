@@ -1,15 +1,7 @@
 import React from "react";
 
-// @ts-ignore
-import styles from "./App.module.css";
 import { Dashboard } from "./components/Dashboard";
 
-function App() {
-  return (
-    <div className={styles.app}>
-      <Dashboard />
-    </div>
-  );
-}
-
-export default App;
+export const App = () => {
+  return <Dashboard />;
+};

@@ -1,11 +1,17 @@
+.spinnerContainer {
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
 .dashboardList {
   list-style: none;
   width: 700px;
-  margin: 0 auto;
+  margin: 100px auto;
   background: white;
   border-radius: 6px;
-  box-shadow: 1px 1px rgba(62, 118, 244, 0.14),
-    -1px -1px rgba(62, 118, 244, 0.14);
+  box-shadow: 0 2px 11px 0px rgba(62, 118, 244, 0.14);
 }
 
 .eventListItem {
@@ -16,15 +22,32 @@
   border-bottom: 1px solid rgba(62, 118, 244, 0.14);
 }
 
-.avatar {
-  padding-right: 20px;
+.eventListItem:hover {
+  background: rgb(231, 242, 246);
 }
 
-.title {
-  font-size: 14px;
-  margin-bottom: 20px;
+.eventListItem:hover > div > p {
+  white-space: unset;
+}
+
+.avatar {
+  margin-right: 15px;
+  border-radius: 50%;
 }
 
 .subtitle {
   font-size: 12px;
+}
+
+.overflowellipsis {
+  font-size: 14px;
+  margin-bottom: 5px;
+  width: 609px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bold {
+  font-weight: 700;
 }
