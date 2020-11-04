@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import InfiniteScroll from "react-infinite-scroller";
 import { CircleLoader } from "react-spinners";
 import useAsyncEffect from "use-async-effect";
 
@@ -25,11 +26,18 @@ export const Dashboard = () => {
   const [eventLogs, setEventLogs] = useState<readonly IEventLog[]>();
   console.log("Dashboard -> eventLogs", eventLogs);
 
+  const [loadedEvents, setLoadedEvents] = useState<readonly IEventLog[]>();
+
   useAsyncEffect(async () => {
     const events = await getEventLogs();
     console.log("Dashboard -> events", events);
     setEventLogs(events);
+    setLoadedEvents(events.slice(0, 19));
   }, []);
+
+  const loadMore = (page: number) => {
+    setLoadedEvents(eventLogs?.slice(0, page * 20));
+  };
 
   return eventLogs === undefined ? (
     <div className={styles.spinnerContainer}>
@@ -37,9 +45,15 @@ export const Dashboard = () => {
     </div>
   ) : (
     <ul className={styles.dashboardList}>
-      {eventLogs?.slice(0, 150).map((event, key) => (
-        <EventListItem eventLog={event} key={key} />
-      ))}
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={loadMore}
+        hasMore={eventLogs.length !== loadedEvents?.length}
+      >
+        {loadedEvents?.map((event, key) => (
+          <EventListItem eventLog={event} key={key} />
+        ))}
+      </InfiniteScroll>
     </ul>
   );
 };
