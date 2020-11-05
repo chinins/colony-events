@@ -11,14 +11,18 @@ import { getAddressAndPotId } from "./getAddressAndPotId";
 export const getEventLogs = async () => {
   const colonyClient = await getColonyClient();
 
-  // @ts-ignore
-  const colonyInitialisedFilter = colonyClient.filters.ColonyInitialised();
+  const colonyInitialisedFilter = colonyClient.filters.ColonyInitialised(
+    null,
+    null
+  );
   // @ts-ignore
   const colonyRoleSetFilter = colonyClient.filters.ColonyRoleSet();
-  // @ts-ignore
-  const payoutClaimedFilter = colonyClient.filters.PayoutClaimed();
-  // @ts-ignore
-  const domainAddedFilter = colonyClient.filters.DomainAdded();
+  const payoutClaimedFilter = colonyClient.filters.PayoutClaimed(
+    null,
+    null,
+    null
+  );
+  const domainAddedFilter = colonyClient.filters.DomainAdded(null);
 
   const colonyInitialisedLogs = await getLogs(
     colonyClient,
