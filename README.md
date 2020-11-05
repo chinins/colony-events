@@ -10,6 +10,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 2. Install dependancies
 
 `cd colony-events`
+
 `npm i` or `yarn`
 
 2. Run the project
