@@ -37,7 +37,7 @@ export const Dashboard = () => {
     </div>
   ) : eventLogs === undefined ? (
     <div className={styles.dashboardHelperContainer}>
-      Error, please try again in 30 seconds
+      Something went wrong, please try again in 30 seconds...
     </div>
   ) : (
     <ul className={styles.dashboardList}>
