@@ -1,8 +1,10 @@
-.spinnerContainer {
+.dashboardHelperContainer {
   height: 100vh;
   align-items: center;
   justify-content: center;
   display: flex;
+  color: red;
+  font-weight: bold;
 }
 
 .dashboardList {
@@ -39,7 +41,7 @@
   font-size: 12px;
 }
 
-.overflowellipsis {
+.overflowEllipsis {
   font-size: 14px;
   margin-bottom: 5px;
   width: 609px;
@@ -48,6 +50,6 @@
   text-overflow: ellipsis;
 }
 
-.bold {
+.fontWeightBold {
   font-weight: 700;
 }

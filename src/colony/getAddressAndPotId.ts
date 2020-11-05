@@ -1,18 +1,19 @@
 import { ColonyClient } from "@colony/colony-js";
-import { utils } from "ethers";
+import { BigNumber } from "ethers/utils";
 
-export const getUserAddress = async (
+import { formatBigNumber } from "../utils";
+
+export const getAddressAndPotId = async (
   colonyClient: ColonyClient,
-  fundingPotId: any
+  fundingPotId: BigNumber
 ) => {
-  const humanReadableFundingPotId = new utils.BigNumber(
-    fundingPotId
-  ).toString();
+  const humanReadableFundingPotId = formatBigNumber(fundingPotId);
 
   const { associatedTypeId } = await colonyClient.getFundingPot(
     humanReadableFundingPotId
   );
 
   const { recipient } = await colonyClient.getPayment(associatedTypeId);
+
   return { userAddress: recipient, humanReadableFundingPotId };
 };

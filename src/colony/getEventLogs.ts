@@ -1,14 +1,15 @@
 import { getLogs } from "@colony/colony-js";
 import { Log } from "ethers/providers";
 
+import { EventName } from "../@config";
+import { formatHexNumber } from "../utils";
+
 import { getColonyClient } from "./getColonyClient";
-import { getFormattedAmount } from "./getFormattedAmount";
 import { getLogTime } from "./getLogTime";
-import { getUserAddress } from "./getUserAddress";
+import { getAddressAndPotId } from "./getAddressAndPotId";
 
 export const getEventLogs = async () => {
   const colonyClient = await getColonyClient();
-  console.log("colonyClient", colonyClient);
 
   // @ts-ignore
   const colonyInitialisedFilter = colonyClient.filters.ColonyInitialised();
@@ -37,19 +38,18 @@ export const getEventLogs = async () => {
     ...event,
     ...colonyClient.interface.parseLog(event),
   }));
-  // console.log("parsedLogs", parsedLogs);
 
-  const logs = await Promise.all(
+  const formattedLogs = await Promise.all(
     parsedLogs.map(async (eventLog) => {
       const logTime = await getLogTime(eventLog.blockHash as string);
 
-      if (eventLog.name === "PayoutClaimed") {
-        const additionalData = await getUserAddress(
+      if (eventLog.name === EventName.PayoutClaimed) {
+        const additionalData = await getAddressAndPotId(
           colonyClient,
           eventLog.values.fundingPotId
         );
 
-        const formattedAmount = getFormattedAmount(eventLog.values.amount);
+        const formattedAmount = formatHexNumber(eventLog.values.amount);
 
         return {
           ...eventLog,
@@ -63,9 +63,5 @@ export const getEventLogs = async () => {
     })
   );
 
-  const sortedLogs = logs.sort((a, b) => b.logTime - a.logTime);
-
-  // console.log("logs", logs);
-  // console.log("sortedLogs", sortedLogs);
-  return sortedLogs;
+  return formattedLogs.sort((a, b) => b.logTime - a.logTime);
 };
