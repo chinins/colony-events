@@ -1,8 +1,6 @@
 import React from "react";
 import Blockies from "react-blockies";
 
-import blockies from "blockies";
-
 import { formatDate } from "../utils";
 
 import { EventTitle } from "./EventTitle";
